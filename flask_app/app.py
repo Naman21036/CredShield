@@ -49,12 +49,17 @@ def index():
         df = pd.DataFrame([data])
 
         
-        prob = pipeline.predict(df)[0]
+       try:
+           prob = pipeline.predict(df)[0]
 
-        result = {
-            "probability": round(float(prob), 4),
-            "risk": "High" if prob >= 0.5 else "Low"
-        }
+           result = {
+                "probability": round(float(prob), 4),
+                "risk": "High" if prob >= 0.5 else "Low"
+           }
+
+        except Exception as e:
+            import traceback
+            return f"<pre>{traceback.format_exc()}</pre>"
 
     return render_template("index.html", result=result)
 
