@@ -5,8 +5,11 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-app = Flask(__name__)
+from src.pipeline.predict_pipe import PredictPipeline
 
+
+app = Flask(__name__)
+pipeline = PredictPipeline()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -14,7 +17,7 @@ def index():
 
     if request.method == "POST":
         data = {
-            "LIMIT_BAL": float(request.form["LIMIT_BAL"]),
+            "LIMIT_BAL": float(request.form.get("LIMIT_BAL", 0)),
             "AGE": int(request.form["AGE"]),
 
             "SEX": request.form["SEX"],
@@ -45,7 +48,7 @@ def index():
 
         df = pd.DataFrame([data])
 
-        pipeline = PredictPipeline()
+        
         prob = pipeline.predict(df)[0]
 
         result = {
