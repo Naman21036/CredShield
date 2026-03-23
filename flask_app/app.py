@@ -18,44 +18,43 @@ def index():
     if request.method == "POST":
         data = {
             "LIMIT_BAL": float(request.form.get("LIMIT_BAL", 0)),
-            "AGE": int(request.form["AGE"]),
+            "AGE": int(request.form.get("AGE", 0)),
 
-            "SEX": request.form["SEX"],
-            "EDUCATION": request.form["EDUCATION"],
-            "MARRIAGE": request.form["MARRIAGE"],
+            "SEX": request.form.get("SEX"),
+            "EDUCATION": request.form.get("EDUCATION"),
+            "MARRIAGE": request.form.get("MARRIAGE"),
 
-            "PAY_1": request.form["PAY_1"],
-            "PAY_2": request.form["PAY_2"],
-            "PAY_3": request.form["PAY_3"],
-            "PAY_4": request.form["PAY_4"],
-            "PAY_5": request.form["PAY_5"],
-            "PAY_6": request.form["PAY_6"],
+            "PAY_1": request.form.get("PAY_1"),
+            "PAY_2": request.form.get("PAY_2"),
+            "PAY_3": request.form.get("PAY_3"),
+            "PAY_4": request.form.get("PAY_4"),
+            "PAY_5": request.form.get("PAY_5"),
+            "PAY_6": request.form.get("PAY_6"),
 
-            "BILL_AMT1": float(request.form["BILL_AMT1"]),
-            "BILL_AMT2": float(request.form["BILL_AMT2"]),
-            "BILL_AMT3": float(request.form["BILL_AMT3"]),
-            "BILL_AMT4": float(request.form["BILL_AMT4"]),
-            "BILL_AMT5": float(request.form["BILL_AMT5"]),
-            "BILL_AMT6": float(request.form["BILL_AMT6"]),
+            "BILL_AMT1": float(request.form.get("BILL_AMT1", 0)),
+            "BILL_AMT2": float(request.form.get("BILL_AMT2", 0)),
+            "BILL_AMT3": float(request.form.get("BILL_AMT3", 0)),
+            "BILL_AMT4": float(request.form.get("BILL_AMT4", 0)),
+            "BILL_AMT5": float(request.form.get("BILL_AMT5", 0)),
+            "BILL_AMT6": float(request.form.get("BILL_AMT6", 0)),
 
-            "PAY_AMT1": float(request.form["PAY_AMT1"]),
-            "PAY_AMT2": float(request.form["PAY_AMT2"]),
-            "PAY_AMT3": float(request.form["PAY_AMT3"]),
-            "PAY_AMT4": float(request.form["PAY_AMT4"]),
-            "PAY_AMT5": float(request.form["PAY_AMT5"]),
-            "PAY_AMT6": float(request.form["PAY_AMT6"]),
+            "PAY_AMT1": float(request.form.get("PAY_AMT1", 0)),
+            "PAY_AMT2": float(request.form.get("PAY_AMT2", 0)),
+            "PAY_AMT3": float(request.form.get("PAY_AMT3", 0)),
+            "PAY_AMT4": float(request.form.get("PAY_AMT4", 0)),
+            "PAY_AMT5": float(request.form.get("PAY_AMT5", 0)),
+            "PAY_AMT6": float(request.form.get("PAY_AMT6", 0)),
         }
 
         df = pd.DataFrame([data])
 
-        
-       try:
-           prob = pipeline.predict(df)[0]
+        try:
+            prob = pipeline.predict(df)[0]
 
-           result = {
+            result = {
                 "probability": round(float(prob), 4),
                 "risk": "High" if prob >= 0.5 else "Low"
-           }
+            }
 
         except Exception as e:
             import traceback
