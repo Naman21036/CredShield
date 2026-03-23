@@ -3,4 +3,6 @@ pandas
 matplotlib
 pylance
 gunicorn
+flask
+scikit-learn
 #-e .
