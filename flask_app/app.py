@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 import pandas as pd
+import sys
+import os
 
-from src.pipeline.predict_pipe import PredictPipeline
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 app = Flask(__name__)
 
@@ -54,5 +56,8 @@ def index():
     return render_template("index.html", result=result)
 
 
+
+
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
