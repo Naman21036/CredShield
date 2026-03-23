@@ -5,4 +5,5 @@ pylance
 gunicorn
 flask
 scikit-learn
+xgboost
 #-e .
